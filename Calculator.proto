@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+message PrimeDecompositionRequest {
+  int32 number = 1;
+}
+
+message PrimeDecompositionResult {
+  int32 result = 1;
+}
+
+message CalculateAverageRequest{
+	int32 number = 1;
+}
+
+message CalculateAverageResponse{
+	double result = 1;
+}
+
+message FindMaximumRequest{
+	int32 number = 1;
+}
+
+message FindMaximumResponse{
+	double result = 1;
+}
+
+service Calculator {
+  rpc GetPimeDecomposition (PrimeDecompositionRequest) returns (stream PrimeDecompositionResult);
+
+  rpc ComputeAverage (stream CalculateAverageRequest) returns (CalculateAverageResponse);
+
+  rpc FindMaximum  (stream FindMaximumRequest) returns (stream FindMaximumResponse);
+}
