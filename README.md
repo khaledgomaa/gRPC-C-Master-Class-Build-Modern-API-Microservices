@@ -16,6 +16,7 @@
 - C#
 - C → C++
 - Python
+- Maybe others you could check.
 
 Note: There are four different implementations, and there might be differences in features among them. For example, C# supports HTTP/3.
 
@@ -70,3 +71,17 @@ Optimizing latency reduces delays, improving throughput increases transfer speed
 
 - Provide a way to dynamically discover the services and models inside gRPC service so it helps consumers to create their gRPC client to consume the gRPC service.
 - Evans is a CLI tool that allows you to interact with gRPC services without needing to write a client application. It leverages gRPC reflection to discover services and methods. 
+
+## Examples
+
+- Cloud PubSub
+- Cloud Spanner
+
+## Use cases
+
+- Most probably used between internal backend services communication since
+  - High Performance: gRPC is highly efficient due to its use of HTTP/2 and Protocol Buffers, making it ideal for low-latency, high-throughput communication between microservices.
+  - Strongly Typed Contracts: The use of Protocol Buffers ensures a strongly typed contract between services, reducing the risk of communication errors.
+  - Streaming: gRPC supports server-side, client-side, and bi-directional streaming, which can be very useful for real-time data exchange.
+  - Language Interoperability: gRPC is supported by multiple programming languages, making it suitable for polyglot environments.
+- It's not natively supported by the web browsers and it's not recommended to be used in such a case. In another word no direct call to gRPC from the browsers it requires a proxy.
