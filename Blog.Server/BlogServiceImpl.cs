@@ -28,10 +28,31 @@ namespace Blog.Server
             return new() { Blog = request.Blog };
         }
 
+        public async override Task ListBlogs(ListBlogRequest request, IServerStreamWriter<ListBlogResponse> responseStream, ServerCallContext context)
+        {
+            var blogs = await _appDbContext.Blogs.ToListAsync();
+
+            for (int i = 0; i < blogs.Count; i++)
+            {
+                await responseStream.WriteAsync(new() { Blog = Map(blogs[i]) });
+            }
+        }
+
         private static Blogg.Dal.Entities.Blog Map(Blog blog)
         {
             return new()
             {
+                Title = blog.Title,
+                AuthId = blog.AuthId,
+                Content = blog.Content
+            };
+        }
+
+        private static Blog Map(Blogg.Dal.Entities.Blog blog)
+        {
+            return new()
+            {
+                Id = blog.Id,
                 Title = blog.Title,
                 AuthId = blog.AuthId,
                 Content = blog.Content

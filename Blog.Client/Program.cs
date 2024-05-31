@@ -19,7 +19,21 @@ var response = client.CreateBlog(new Blog.CreateBlogRequest
 
 Console.WriteLine("Blog with id: {0} has been created", response.Blog.Id);
 
+Console.WriteLine("List all blogs in the database");
+
+var listResponse = client.ListBlogs(new());
+
+while (await listResponse.ResponseStream.MoveNext(CancellationToken.None))
+{
+    Console.WriteLine($"Blog, {ToString(listResponse.ResponseStream.Current.Blog)}");
+}
+
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
 
 await channel.ShutdownAsync();
+
+static string ToString(Blog.Blog blog)
+{
+    return $"Id: {blog.Id}, AuthId: {blog.AuthId}, Title: {blog.Title}, Content: {blog.Content}";
+}
